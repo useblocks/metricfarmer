@@ -6,7 +6,7 @@
 Metric-Farmer
 =============
 
-**Collects and stores your project metrics**
+**Cares about your project metrics**
 
 Metric-Farmer is a Python based command line application to collect and store metrics from different sources
 to different targets.
@@ -17,15 +17,14 @@ Features
 ---------
 Metric-Farmer is capable to collect metrics from following sources:
 
-* jira
-* sphinx-needs
 * static values
+* random values
+* file count
 
 And sends them on the following targets:
 
-* print output
-* json file
-* prometheus push-service
+* print output (text or json)
+* file output (text or json)
 
 Sources and targets can be easily extended by registering own configurations to the Metric-Farmer entry-point.
 
@@ -41,17 +40,16 @@ Metric-Farmer is controlled mostly via file-based configurations. For a quick st
 .. code-block:: json
 
    {
-      "sources": {
+      "metrics": {
          "my_metric": {
-            "measurement": {
-               "type": "static",
-               "value": 100
+            "source": {
+               "type": "random",
             }
          }
       }
    }
 
-4. On your project root level execute ```metricfarmer print```.
+4. On your project root level execute ``metricfarmer print``.
 
 
 Motivation

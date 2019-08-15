@@ -1,0 +1,9 @@
+{
+  "sources": {
+    "html_file_count": {
+      "class": "mf.file_count",
+      "description": "Counts all html files in my project",
+      "pattern": "**/*.html"
+    }
+  }
+}

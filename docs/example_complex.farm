@@ -1,0 +1,37 @@
+{
+
+  "metrics": {
+    "metric_1": {
+       "description": "My fist metric",
+       "tags": [
+         "first",
+         "metric"
+       ],
+       "source": {
+          "type": "static",
+          "value": 12
+       },
+       "targets": {
+          "local_csv": {
+            "name": "metric_1_csv"
+          }
+       }
+    }
+  },
+
+  "sources": {
+    "static": {
+      "class": "mf.static",
+      "value": 10
+    }
+  },
+
+  "targets": {
+    "local_csv": {
+      "class": "mf.csv",
+      "file": "results.csv"
+    }
+
+  }
+
+}

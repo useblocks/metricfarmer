@@ -1,0 +1,76 @@
+{
+  "metrics" : {
+    "mf_static": {
+      "tags": ["mf_examples", "mf_no_sleep"],
+      "description": "Example metric with a default static value",
+      "source": {
+        "type": "static"
+      }
+    },
+    "mf_static_set_value": {
+      "tags": ["mf_examples", "mf_no_sleep"],
+      "description": "Example metric with a given static value",
+      "source": {
+        "type": "static",
+        "value": 123.00
+      }
+    },
+
+    "mf_random": {
+      "tags": ["mf_examples", "mf_no_sleep"],
+      "description": "Example metric with random value",
+      "source": {
+        "type": "random"
+      }
+    },
+    "mf_random_set_range": {
+      "tags": ["mf_examples", "mf_no_sleep"],
+      "description": "Example metric with random value",
+      "source": {
+        "type": "random",
+        "min": -100,
+        "max": 100,
+        "digits": 5
+      }
+    },
+    "mf_random_with_sleep": {
+      "tags": ["mf_examples", "mf_sleep"],
+      "description": "Example metric with random value and some sleep time",
+      "source": {
+        "type": "random",
+        "min": -5,
+        "max": 5,
+        "digits": 0,
+        "sleep": 1
+      }
+    },
+    "mf_random_with_sleep_2": {
+      "tags": ["mf_examples", "mf_sleep"],
+      "description": "Example metric with random value and some sleep time",
+      "source": {
+        "type": "random",
+        "min": -5,
+        "max": 5,
+        "digits": 0,
+        "sleep": 2
+      }
+    },
+    "mf_file_count": {
+      "tags": ["mf_examples", "mf_no_sleep"],
+      "description": "Counts all files in current working directory and subfolders",
+      "source": {
+        "type": "file_count"
+      }
+    },
+    "mf_python_file_count": {
+      "tags": ["mf_examples", "mf_no_sleep"],
+      "description": "Counts all python files in current working directory and subfolders",
+      "source": {
+        "type": "file_count",
+        "pattern": "*/*.py"
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,35 @@
+{
+  "metrics": {
+    "project_files": {
+      "source": {
+        "type": "file_count",
+        "pattern": "**/*"
+      }
+    },
+    "project_python_files": {
+      "source": {
+        "type": "file_count",
+        "pattern": "**/*.py"
+      }
+    },
+    "test_python_files": {
+      "source": {
+        "type": "file_count",
+        "pattern": "tests/**/*.py"
+      }
+    },
+    "farm_files": {
+      "source": {
+        "type": "file_count",
+        "pattern": "**/*.farm"
+      }
+    },
+    "project_farm_files": {
+      "source": {
+        "type": "file_count",
+        "pattern": ".farmer/*.farm"
+      }
+    }
+  }
+
+}

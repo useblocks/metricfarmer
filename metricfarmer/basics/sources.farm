@@ -1,0 +1,23 @@
+{
+  "sources": {
+    "static": {
+      "class": "mf.static",
+      "description": "Sets a static value for a metric. Default is 0.",
+      "value": 0
+    },
+
+    "random": {
+      "class": "mf.random",
+      "description": "Sets a random number between 0 and 10.",
+      "min": 0,
+      "max": 10,
+      "digits": 2
+    },
+
+    "file_count": {
+      "class": "mf.file_count",
+      "description": "Counts all file in the current working directory."
+    }
+
+  }
+}

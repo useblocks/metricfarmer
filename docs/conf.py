@@ -91,23 +91,29 @@ html_theme = 'alabaster'
 #
 # html_theme_options = {}
 
+# html_logo = "_static/needs_logo.png"
+# html_sidebars = {'**': ['about.html', 'navigation.html', 'sourcelink.html', 'searchbox.html'], }
+html_sidebars = {'**': ['about.html', 'navigation.html'], }
+
+html_theme_options = {
+    'logo': 'metricfarmer_logo.png',
+    'logo_name': False,
+    # 'description': "an extension for sphinx",
+    'logo_text_align': "center",
+    'github_user': 'useblocks',
+    'github_repo': 'metricfarmer',
+    'github_banner': True,
+    'github_button': False,
+    'fixed_sidebar': True,
+    'extra_nav_links': {'needs@PyPi': "https://pypi.python.org/pypi/metricfarmer/",
+                        'needs@github': "https://github.com/useblocks/metricfarmer",
+                        'needs@travis': "https://travis-ci.org/useblocks/metricfarmer"}
+}
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
-# Custom sidebar templates, must be a dictionary that maps document names
-# to template names.
-#
-# This is required for the alabaster theme
-# refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
-html_sidebars = {
-    '**': [
-        'relations.html',  # needs 'show_related': True theme option to display
-        'searchbox.html',
-    ]
-}
-
 
 # -- Options for HTMLHelp output ------------------------------------------
 

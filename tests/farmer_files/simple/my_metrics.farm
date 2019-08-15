@@ -1,0 +1,15 @@
+{
+  "metrics": {
+     "all_html_files": {
+        "source": {
+          "type": "html_file_count"
+        }
+     },
+     "doc_html_files": {
+        "source": {
+          "type": "html_file_count",
+          "path": "docs/"
+        }
+     }
+  }
+}
