@@ -17,7 +17,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
+import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
@@ -31,10 +31,28 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
+    'sphinxcontrib.plantuml',
+    'sphinxcontrib.programoutput'
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+# PlantUML parameters
+cwd = os.getcwd()
+plantuml = 'java -jar %s' % os.path.join(cwd, 'utils/plantuml.jar')
+
+# If we are running on windows, we need to manipulate the path,
+# otherwise plantuml will have problems.
+if os.name == 'nt':
+    plantuml = plantuml.replace('/', '\\')
+    plantuml = plantuml.replace('\\', '\\\\')
+
+plantuml_output_format = 'png'
+
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -98,16 +116,15 @@ html_sidebars = {'**': ['about.html', 'navigation.html'], }
 html_theme_options = {
     'logo': 'metricfarmer_logo.png',
     'logo_name': False,
-    # 'description': "an extension for sphinx",
     'logo_text_align': "center",
     'github_user': 'useblocks',
     'github_repo': 'metricfarmer',
     'github_banner': True,
     'github_button': False,
     'fixed_sidebar': True,
-    'extra_nav_links': {'needs@PyPi': "https://pypi.python.org/pypi/metricfarmer/",
-                        'needs@github': "https://github.com/useblocks/metricfarmer",
-                        'needs@travis': "https://travis-ci.org/useblocks/metricfarmer"}
+    'extra_nav_links': {'mf@PyPi': "https://pypi.python.org/pypi/metricfarmer/",
+                        'mf@github': "https://github.com/useblocks/metricfarmer",
+                        'mf@travis': "https://travis-ci.org/useblocks/metricfarmer"}
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

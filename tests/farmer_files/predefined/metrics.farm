@@ -1,0 +1,18 @@
+{
+  "metrics" : {
+    "my_static_metric": {
+      "type": "static",
+      "value": 42
+    },
+    "my_random_metric": {
+      "type": "random",
+      "min": -50,
+      "max": 50,
+      "digits": 1
+    },
+    "my_file_count_metric": {
+      "type": "file_count",
+      "pattern": "**/*.farm"
+    }
+  }
+}

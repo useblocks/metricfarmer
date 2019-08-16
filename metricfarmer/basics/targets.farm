@@ -10,14 +10,14 @@
       "description": "Prints the measurement results as json on std.out"
     },
 
-    "text_file": {
+    "file_text": {
       "class": "mf.file_text",
       "description": "Stores metric results in a simple text file.",
       "path": "metric_results.txt",
       "override": true
     },
 
-    "json_file": {
+    "file_json": {
       "class": "mf.file_json",
       "description": "Stores metric results in a json file.",
       "path": "metric_results.json",

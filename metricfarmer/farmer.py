@@ -77,11 +77,6 @@ class MetricFarmerApp:
 
                     click.echo(Fore.GREEN + 'DONE' + Style.RESET_ALL)
 
-        click.echo('\nFound configurations:')
-        click.echo('Metrics: ' + Fore.GREEN + str(len(self.metrics)) + Style.RESET_ALL)
-        click.echo('Sources: ' + Fore.GREEN + str(len(self.sources)) + Style.RESET_ALL)
-        click.echo('Targets: ' + Fore.GREEN + str(len(self.targets)) + Style.RESET_ALL)
-
         # Clean metrics and store/count tags
         for metric in self.metrics.values():
             if "description" not in metric.keys():
