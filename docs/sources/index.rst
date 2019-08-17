@@ -132,5 +132,5 @@ They are provided by Metric-Farmer extensions.
 
 For all available source classes on your installation, please execute ``metricfarmer --list``.
 
-If you wish to create you own ``source class`` please take a look into :ref:`extensions`.
+If you wish to create your own ``source class`` please take a look into :ref:`extensions`.
 

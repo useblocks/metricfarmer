@@ -1,7 +1,7 @@
 from metricfarmer.extensions import MetricFarmerExtension
 
 from .sources import source_static, source_random, source_file_count
-from .targets import target_print, target_file_text, target_file_json, target_print_json
+from .targets import target_print, target_file_text, target_file_json, target_print_json, target_file_csv
 
 
 class MF(MetricFarmerExtension):
@@ -23,7 +23,8 @@ class MF(MetricFarmerExtension):
             'print': target_print,
             'print_json': target_print_json,
             'file_text': target_file_text,
-            'file_json': target_file_json
+            'file_json': target_file_json,
+            'file_csv': target_file_csv
         }
 
 

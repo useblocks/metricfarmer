@@ -22,6 +22,14 @@
       "description": "Stores metric results in a json file.",
       "path": "metric_results.json",
       "override": true
+    },
+
+    "file_csv": {
+      "class": "mf.file_csv",
+      "description": "Stores metric results in a csv file.",
+      "path": "metric_results.csv",
+      "override": false,
+      "delimiter": ","
     }
   }
 }

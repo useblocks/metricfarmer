@@ -1,3 +1,5 @@
+.. _settings:
+
 Settings
 ========
 
@@ -12,7 +14,7 @@ They can be part of any ``.farm``-file::
          }
    }
 
-All settings are defined by Metric-Farmer, as their usage is hardly coded in its source code.
+All available settings are defined by Metric-Farmer, as their usage is hardly coded in its source code.
 
 Extensions have access to it, but should normally not use them.
 Instead their configuration should be stored in the parameters of their ``sources`` and ``targets``.
@@ -22,6 +24,8 @@ Available settings
 
 .. contents::
    :local:
+
+.. _target_default:
 
 targets_default
 ~~~~~~~~~~~~~~~
@@ -39,6 +43,7 @@ Example::
 
 Calling just ``metricfarmer`` will automatically execute the target ``print``, if the above configuration is given.
 
+.. _target_always:
 
 targets_always
 ~~~~~~~~~~~~~~

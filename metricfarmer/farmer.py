@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import sys
+import datetime
 
 import click
 from colorama import Fore, Style
@@ -153,6 +154,7 @@ class MetricFarmerApp:
 
                 result = self._call_source_handler(source_class, parameters)
                 metric['result'] = result
+                metric['result_timestamp'] = datetime.datetime.now().isoformat()
 
             except KeyError as error:
                 click.echo(Fore.RED + 'INVALID' + 'Configuration errors detected: {error}'.format(error=error)
@@ -245,6 +247,7 @@ def mf_list(mf_app):
     click.echo('Metric tags found: {}\n{}\n'.format(len(mf_app.tags), ', '.join(mf_app.tags)))
     click.echo('Sources found: {}\n{}\n'.format(len(mf_app.sources), ', '.join(mf_app.sources)))
     click.echo('Targets found: {}\n{}\n'.format(len(mf_app.targets), ', '.join(mf_app.targets)))
+    click.echo('Settings found: {}\n{}\n'.format(len(mf_app.settings), ', '.join(mf_app.settings)))
 
     click.echo("Extension information")
     click.echo("**********************")

@@ -1,0 +1,36 @@
+{
+  "metrics": {
+    "test": {
+      "source": {
+        "type": "static",
+        "value": 100
+      }
+    }
+  },
+
+  "sources": {
+    "static": {
+      "class": "mf.static",
+      "description": "Sets a static value for a metric. Default is 0.",
+      "value": 0
+    }
+  },
+
+  "targets": {
+    "file_csv_new": {
+      "class": "mf.file_csv",
+      "description": "Stores metric results in a csv file.",
+      "path": "new.csv",
+      "override": false,
+      "delimiter": ","
+    },
+    "file_csv_exists": {
+      "class": "mf.file_csv",
+      "description": "Stores metric results in a csv file.",
+      "path": "exists.csv",
+      "override": false,
+      "delimiter": ","
+    }
+  }
+}
+
