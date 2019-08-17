@@ -1,0 +1,5 @@
+{
+  "settings": {
+    "targets_always": ["print_json"]
+  }
+}

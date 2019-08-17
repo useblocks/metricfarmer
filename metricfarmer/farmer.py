@@ -27,6 +27,7 @@ class MetricFarmerApp:
         self.metrics = {}
         self.sources = {}
         self.targets = {}
+        self.settings = {}
 
         self.tags = []
 
@@ -74,6 +75,9 @@ class MetricFarmerApp:
 
                     if 'targets' in data.keys():
                         self.targets = {**self.targets, **data['targets']}
+
+                    if 'settings' in data.keys():
+                        self.settings = {**self.settings, **data['settings']}
 
                     click.echo(Fore.GREEN + 'DONE' + Style.RESET_ALL)
 
@@ -158,6 +162,17 @@ class MetricFarmerApp:
             click.echo(Fore.GREEN + 'DONE' + Style.RESET_ALL)
 
     def store(self, targets, filtered_metrics):
+
+        # Lets check, if there are default targets to run, if no special targets are given by user.
+        if not targets:
+            targets = self.settings.get('targets_default', [])
+
+        # There may be also targets, which must always run.
+        targets = list(targets)  # we got a tuple from click for targets
+        for always_target in self.settings.get('targets_always', []):
+            if always_target not in targets:
+                targets.insert(0, always_target)
+
         if not targets:
             click.echo(Fore.RED + 'No targets defined. Use e.g. "metricfarmer print".' + Style.RESET_ALL)
         for target in targets:
