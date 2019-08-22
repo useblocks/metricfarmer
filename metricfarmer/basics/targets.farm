@@ -30,6 +30,13 @@
       "path": "metric_results.csv",
       "override": false,
       "delimiter": ","
+    },
+
+    "db_sqlite": {
+      "class": "mf.db_sqlite",
+      "description": "Stores metric results in a sqlite file.",
+      "path": "metric_results.db",
+      "table": "metrics"
     }
   }
 }

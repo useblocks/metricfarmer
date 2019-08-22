@@ -20,7 +20,7 @@ Two different Jira installation exist: One for development tasks and one for pro
 The needed functions to access this Jira systems and measure metrics are the same, therefore only one ``source class``
 is needed, which must be provided by an Metric-Farmer extension.
 
-But both systems are available on different URLs and uses different credentials.
+But both systems are available on different URLs and use different credentials.
 So two ``source types`` are needed, to store the different urls and credentials as parameters.
 These ``source types`` must be configured by the user in a ``.farm``-file.
 
@@ -31,16 +31,19 @@ The metrics itself are only setting a filter parameter to get the needed data.
 .. uml::
 
    @startuml
-
+      hide stereotype
       skinparam defaultTextAlignment center
-      node "**Open tasks user A**\n(metric)" as ma #ff5533
-      node "**Open tasks user B**\n(metric)" as mb #ff5533
-      node "**Open requirements user A**\n(metric)" as mc #ff5533
+      skinparam nodeFontColor<<jira_style>> #fff
 
-      node "**Task Jira system**\n(source type)" as ta #ffcc00
-      node "**Requirement Jira system**\n(source type)" as tb #ffcc00
+      node "**Open tasks user A**\n(metric)" as ma #ffcc00
+      node "**Open tasks user B**\n(metric)" as mb #ffcc00
+      node "**Open requirements user A**\n(metric)" as mc #ffcc00
 
-      node "**Jira**\n(source class)" as c #ccff22
+      node "**Task Jira system**\n(source type)" as ta #abc837
+      node "**Requirement Jira system**\n(source type)" as tb #abc837
+
+
+      node "**Jira**\n(source class)" <<jira_style>> as c #483e37
 
       ma --> ta
       mb --> ta

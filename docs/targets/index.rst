@@ -18,6 +18,21 @@ Targets get selected by the user during the call of Metric-Farmer, e.g. ``metric
 .. contents::
    :local:
 
+Use predefined targets
+----------------------
+
+Metric-Farmer provides the predefined targets ``print``, ``print_json``, ``file_text``, ``file_json``, ``file_csv`` and ``db_sqlite``.
+
+This is the content of the ``.farm``-file, which defines the predefined sources:
+
+.. literalinclude:: ../../metricfarmer/basics/targets.farm
+   :language: json
+
+Please take the above file content as reference about what defaults are set/used for each target.
+For instance the use file path of csv output.
+
+The targets can be simply used as argument in the Metric-Farmer call: ``metricfarmer db_sqlite``.
+
 Define own targets
 ------------------
 Targets can be defined in each ``.farm``-file. After definition they can directly be selected and used by the user.
@@ -146,4 +161,39 @@ If ``override`` is set to false and a csv file already exists, new results with 
      - Character to use as delimiter in csv file
      - ,
      - No
+
+mf.db_sqlite
+~~~~~~~~~~~~
+Writes results to a local sqlite database file.
+
+File path and table can be configured by the related parameters.
+But the needed table columns are fixed: ``metric``, ``timestamp``, ``result``
+
+New data is always added and existing data is kept.
+
+The database table may look like this after several executions of ``metricfarmer db_sqlite``.
+
+.. image:: /_static/sqlite_table.png
+
+
+You can use a sqlite database viewer like `sqlitebrowser <https://sqlitebrowser.org/>`_ to analyze the data.
+
+.. list-table:: Parameters
+   :widths: 20 50 20 10
+   :header-rows: 1
+   :stub-columns: 1
+
+   * - Parameter
+     - Description
+     - Default
+     - Required
+   * - path
+     - File path to use
+     - metric_results.db
+     - No
+   * - table
+     - Name of the table to use for string result data
+     - metrics
+     - No
+
 

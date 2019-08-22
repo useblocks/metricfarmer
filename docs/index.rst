@@ -34,16 +34,68 @@ For instance to measure a company-internal service.
 
 Features
 ---------
-Metric-Farmer is capable to collect metrics from following sources:
+Metric-Farmer is capable to collect metrics from following :ref:`sources`:
 
 * static values
 * random values
 * file count
 
-And sends them on the following targets:
+And sends the results to the following :ref:`targets`:
 
 * print output (text or json)
 * file output (text or json)
+* database output (sqlite)
+
+Workflow
+--------
+
+.. uml::
+
+   @startuml
+   skinparam defaultTextAlignment center
+   left to right direction
+
+   skinparam cloud {
+      FontColor #fff
+      Backgroundcolor #483e37
+   }
+
+   node "**User**\ndefines metrics\n in //.farm files//" as dm #ffcc00
+   node "**User/CI**\nexecutes Metric-Farmer" as em #ffcc00
+
+   node "**Metric-Farmer**\nprepares measurments\nbased on //.farm files// " as pm #abc837
+   node "**Metric-Farmer**\nmeasures metrics\n from  //sources// " as mm #abc837
+   node "**Metric-Farmer**\nstores results\n on //targets//" as sr #abc837
+   node "**User**\nanalyses results" as ar_user #ffcc00
+   node "**CI**\nanalyses results" as ar_ci #ffcc00
+
+   artifact ".farm files" as ff #ffcc00
+
+   cloud "Source A" as src_a
+   cloud "Source B" as src_b
+
+   cloud "Target A" as target_a
+   cloud "Target B" as target_b
+
+   dm --> ff
+   ff --> pm
+   em -> pm
+
+   pm -> mm
+   mm -> sr
+
+   src_a --> mm
+   src_b --> mm
+
+   sr --> target_a
+   sr --> target_b
+
+   target_a --> ar_user
+   target_b --> ar_ci
+
+
+   @enduml
+
 
 Quick start
 -----------
