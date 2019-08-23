@@ -80,11 +80,15 @@ Predefined target classes
 This list shows only  target classes provided by Metric-Farmer. If you have installed some extensions, this list might
 be much bigger. Please run ``metricfarmer --list`` to see what is really available on your system.
 
+.. _mf.print:
+
 mf.print
 ++++++++
 Prints the result on the command line.
 
 Does not support any parameters.
+
+.. _mf.print_json:
 
 mf.print_json
 +++++++++++++
@@ -92,6 +96,8 @@ mf.print_json
 Prints the result as json format on the command line.
 
 Does not support any parameters.
+
+.. _mf.file_text:
 
 mf.file_text
 ++++++++++++
@@ -116,6 +122,8 @@ Writes the results to a text file.
      - False
      - No
 
+.. _mf.file_json:
+
 mf.file_json
 ++++++++++++
 Writes the results to a json file.
@@ -139,6 +147,8 @@ Same out put as target ``print_json``.
      - If true, existing file gets replace, otherwise an error is thrown
      - False
      - No
+
+.. _mf.file_csv:
 
 mf.file_csv
 +++++++++++
@@ -168,6 +178,8 @@ If ``override`` is set to false and a csv file already exists, new results with 
      - Character to use as delimiter in csv file
      - ,
      - No
+
+.. _mf.db_sqlite:
 
 mf.db_sqlite
 ++++++++++++

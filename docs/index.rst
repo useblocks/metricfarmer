@@ -37,15 +37,17 @@ Features
 ---------
 Metric-Farmer is capable to collect metrics from following :ref:`sources`:
 
-* static values
-* random values
-* file count
+* :ref:`static values <mf.static>`
+* :ref:`random values<mf.random>`
+* :ref:`file count <mf.file_count>`
+* :ref:`REST requests <mf.rest>`
+
 
 And sends the results to the following :ref:`targets`:
 
-* print output (text or json)
-* file output (text or json)
-* database output (sqlite)
+* print output (:ref:`text <mf.print>` or :ref:`json <mf.print_json>`)
+* file output (:ref:`text <mf.file_text>` or :ref:`json <mf.file_json>`)
+* database output (:ref:`sqlite <mf.db_sqlite>`)
 
 Workflow
 --------

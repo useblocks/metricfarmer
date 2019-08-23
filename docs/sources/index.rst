@@ -164,6 +164,8 @@ Available target classes are:
 .. contents::
    :local:
 
+.. _mf.static:
+
 mf.static
 +++++++++
 
@@ -182,6 +184,8 @@ mf.static
      - A static value, which is used as result
      - None
      - No
+
+.. _mf.random:
 
 mf.random
 +++++++++
@@ -216,6 +220,8 @@ Use ``min`` and ``max`` parameters to define the range.
      - 0
      - No
 
+.. _mf.file_count:
+
 mf.file_count
 +++++++++++++
 
@@ -241,6 +247,7 @@ Use ``pattern`` to define what kind of files shall get measured.
      - ``**/*``
      - No
 
+.. _mf.rest:
 
 mf.rest
 +++++++
@@ -299,9 +306,29 @@ Imagine the service sends back the following data::
 
 If the ``age`` shall be taken as measurement result, the ``result_call`` must be ``rest_result['age']``.
 
-But even more complex measurements a possible. Lets say we need to measure the amount of friends.
+But even more complex measurements are possible. Lets say we need to measure the amount of friends.
 Then the ``result_call`` should be ``len(rest_result['friends']))``.
 
+
+**Example source type**
+
+.. code-block:: json
+
+   {
+      "sources": {
+         "company_service": {
+            "type": "mf.rest",
+            "url": "https://my-company.com/service/api/rest",
+            "user": "my-name",
+            "password: "my_password",
+            "method": "POST",
+            "payload": {
+               "filter": "Issues = Open"
+               }
+            "result_call": "rest_result['service_A']['total']"
+         }
+      }
+   }
 
 
 
