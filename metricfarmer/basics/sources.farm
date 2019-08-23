@@ -17,6 +17,11 @@
     "file_count": {
       "class": "mf.file_count",
       "description": "Counts all file in the current working directory."
+    },
+
+    "rest": {
+      "class": "mf.rest",
+      "description": "Makes a REST call against a given url."
     }
 
   }

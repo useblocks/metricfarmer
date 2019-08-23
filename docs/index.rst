@@ -31,6 +31,7 @@ For instance to measure a company-internal service.
    targets/index
    settings
    extensions
+   helpers
 
 Features
 ---------

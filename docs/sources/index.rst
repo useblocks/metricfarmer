@@ -12,6 +12,12 @@ A metric must reference a ``source type`` defined in a ``.farm``-file.
 And a ``source type`` needs to reference a ``source class``, which is provided by Metric-Farmer extensions and defined
 as a function in a Python file.
 
+
+**Page content**
+
+.. contents::
+   :local:
+
 **Context example**
 
 Image you are working for a company. This company is using **Jira** for their issue systems.
@@ -55,9 +61,6 @@ The metrics itself are only setting a filter parameter to get the needed data.
 
    @enduml
 
-.. contents::
-   :local:
-
 Source types
 ------------
 
@@ -77,10 +80,29 @@ Both metrics use the same source ``html_file_count``, but the last metric also o
 This source references the source class ``mf.file_count``.
 ``mf`` is the namespace of the extension (here Metric-Farmer) and ``file_count`` is the source function to call.
 
+.. _predefined_sources:
+
+Predefined sources
+~~~~~~~~~~~~~~~~~~
+
+Metric-Farmer provides the predefined sources ``static``, ``random`` and ``file_count``.
+They are used mainly for examples and simple use cases.
+
+This is the content of the ``.farm``-file, which defines the predefined sources:
+
+.. literalinclude:: ../../metricfarmer/basics/sources.farm
+   :language: json
+
+**Usage example**:
+
+.. literalinclude:: ../../tests/farmer_files/predefined/metrics.farm
+   :language: json
+
+
 .. _own_sources:
 
-Create own sources
-~~~~~~~~~~~~~~~~~~
+Own sources
+~~~~~~~~~~~
 
 Sources get defined in the ``sources`` section of a ``.farm``-file.
 
@@ -108,25 +130,6 @@ So please take a look into their documentation to find out which parameters are 
 
 Defined ``sources`` can be used and referenced in all other ``.farm``-files.
 
-.. _predefined_sources:
-
-Use predefined sources
-~~~~~~~~~~~~~~~~~~~~~~
-
-Metric-Farmer provides the predefined sources ``static``, ``random`` and ``file_count``.
-They are used mainly for examples and simple use cases.
-
-This is the content of the ``.farm``-file, which defines the predefined sources:
-
-.. literalinclude:: ../../metricfarmer/basics/sources.farm
-   :language: json
-
-**Usage example**:
-
-.. literalinclude:: ../../tests/farmer_files/predefined/metrics.farm
-   :language: json
-
-
 Source classes
 --------------
 
@@ -134,6 +137,177 @@ A ``source class`` is the link to a python function, which does the specific mea
 They are provided by Metric-Farmer extensions.
 
 For all available source classes on your installation, please execute ``metricfarmer --list``.
+
+Predefined source classes
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Metric-Farmer provides already some basic source classes to support some frequent use cases.
+
+You can use them inside your own ``source type`` definitions
+
+.. code-block::
+   :emphasize-lines: 3
+
+   sources": {
+      "my_source": {
+         "class": "predefined_target_class",
+         "a_parameter": 123
+      }
+   }
+
+Each ``source class`` has its own set of needed parameters.
+See their documentation for a detailed picture.
+
+
+Available target classes are:
+
+.. contents::
+   :local:
+
+mf.static
++++++++++
+
+``mf.static`` allows to get static values from sources.
+
+.. list-table:: Parameters
+   :widths: 20 50 20 10
+   :header-rows: 1
+   :stub-columns: 1
+
+   * - Parameter
+     - Description
+     - Default
+     - Required
+   * - value
+     - A static value, which is used as result
+     - None
+     - No
+
+mf.random
++++++++++
+
+``mf.random`` returns a random number as measurement result.
+
+Use ``min`` and ``max`` parameters to define the range.
+
+.. list-table:: Parameters
+   :widths: 20 50 20 10
+   :header-rows: 1
+   :stub-columns: 1
+
+   * - Parameter
+     - Description
+     - Default
+     - Required
+   * - min
+     - Minimum value, which is allowed as result
+     - 0.0
+     - No
+   * - max
+     - Maximum value, which is allwoed as result
+     - 100.0
+     - No
+   * - digits
+     - Allowed positions after decimal point
+     - 2
+     - No
+   * - sleep
+     - Seconds to sleep/wait after measurement
+     - 0
+     - No
+
+mf.file_count
++++++++++++++
+
+``mf.file_count`` measure the amount of files inside a folder and its subfolders.
+
+Use ``pattern`` to define what kind of files shall get measured.
+
+.. list-table:: Parameters
+   :widths: 20 50 20 10
+   :header-rows: 1
+   :stub-columns: 1
+
+   * - Parameter
+     - Description
+     - Default
+     - Required
+   * - path
+     - Path to a folder, where Metric-Farmer shall count the files
+     - current working directory
+     - No
+   * - pattern
+     - Unix style pattern, which defines what to count. See `docs <https://docs.python.org/3/library/glob.html>`_ for details.
+     - ``**/*``
+     - No
+
+
+mf.rest
++++++++
+
+``mf.rest`` allows to take a specific part of the answer of a
+`REST <https://en.wikipedia.org/wiki/Representational_state_transfer>`_  call as measurement result.
+
+.. list-table:: Parameters
+   :widths: 20 50 20 10
+   :header-rows: 1
+   :stub-columns: 1
+
+   * - Parameter
+     - Description
+     - Default
+     - Required
+   * - url
+     - Complete url for the request.
+     - None
+     - Yes
+   * - user
+     - Username to use for Basic Authentication, if needed.
+     - None
+     - No
+   * - password
+     - Password/Token to use for Basic Authentication, if needed.
+     - None
+     - No
+   * - headers
+     - List of headers, which needs to be set for the call.
+     - {'content-type': 'application/json'}
+     - No
+   * - method
+     - HTTP method type. Supported are GET, POST and PUT
+     - GET
+     - No
+   * - payload
+     - Structured data, which will be send as json data.
+     - None
+     - No
+   * - result_call
+     - Python statement, which gets evaluated and defines the location of the data, which shall be taken as measurement result
+     - None
+     - No
+
+``result_call`` must be a Python based statement. This statement gets executed and has access to the request result
+object under the name ``rest_result``.
+
+Imagine the service sends back the following data::
+
+   {
+      "name": "Frank",
+      "age": 32,
+      "friends": ["Peter", "Alex", "Sandra"]
+   }
+
+If the ``age`` shall be taken as measurement result, the ``result_call`` must be ``rest_result['age']``.
+
+But even more complex measurements a possible. Lets say we need to measure the amount of friends.
+Then the ``result_call`` should be ``len(rest_result['friends']))``.
+
+
+
+
+
+Own source classes
+~~~~~~~~~~~~~~~~~~
 
 If you wish to create your own ``source class`` please take a look into :ref:`extensions`.
 

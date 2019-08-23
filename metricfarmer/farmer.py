@@ -1,3 +1,4 @@
+import copy
 import os
 from pathlib import Path
 import sys
@@ -7,6 +8,7 @@ import click
 from colorama import Fore, Style
 import json
 import pkg_resources
+import re
 
 from metricfarmer.exceptions import ConfigException, InvalidTargetException
 
@@ -19,6 +21,8 @@ greetings = """
 *********************
 version: {version} 
 help:    {help}""".format(version=version, help=help)
+
+mf_replace_re = re.compile(r':MF_REPLACE:([\w]*)$', re.VERBOSE)
 
 
 class MetricFarmerApp:
@@ -152,7 +156,7 @@ class MetricFarmerApp:
                 # metric definition must win, if a parameter is defined twice
                 parameters = {**self.sources[source_type], **metric['source']}
 
-                result = self._call_source_handler(source_class, parameters)
+                result = self._call_source_handler(source_class, parameters, name)
                 metric['result'] = result
                 metric['result_timestamp'] = datetime.datetime.now().isoformat()
 
@@ -190,11 +194,13 @@ class MetricFarmerApp:
                 continue
             click.echo(Fore.GREEN + 'DONE' + Style.RESET_ALL)
 
-    def _call_source_handler(self, source_class, parameters):
+    def _call_source_handler(self, source_class, parameters, metric_name):
         source_namespace = source_class.split('.')[0]
         source_func = source_class.split('.')[1]
         handler = self.extensions[source_namespace].source_classes[source_func]
-        result = handler(**parameters)
+
+        checked_parameters = self._replace_parameters(parameters)
+        result = handler(**checked_parameters, metric_name=metric_name)
         return result
 
     def _call_target_handler(self, target_class, filtered_metrics, parameters):
@@ -208,6 +214,48 @@ class MetricFarmerApp:
         handler = self.extensions[target_namespace].target_classes[target_func]
         result = handler(metrics=filtered_metrics, **parameters)
         return result
+
+    def _replace_parameters(self, param_dict, basic_dict=None):
+        """
+        Went through a dictionary and searches for string with a defined syntax.
+        If found, the value wil be replaced by the valued taken from another parameter, which name
+        was given in the string.
+
+        Example:
+
+        {
+            "source": "Take me",
+            "target": {
+                "nothing": True,
+                "final_target": ":MF_REPLACE:source"
+            }
+        }
+
+        Fot the above case, the value of "final_target" will get replace by "take me".
+
+        :param param_dict:
+        :param basic_dict:
+        :return:
+        """
+
+        if basic_dict is None:
+            basic_dict = param_dict
+
+        updated_dict = copy.deepcopy(param_dict)
+
+        for key, value in updated_dict.items():
+            if isinstance(value, dict):
+                updated_dict[key] = self._replace_parameters(value, basic_dict)
+            elif isinstance(value, str):
+                m = mf_replace_re.match(value)
+                if m is not None:
+                    param = m.groups()[0]  # There should be only one param defined
+                    if param in basic_dict.keys():
+                        updated_dict[key] = basic_dict[param]
+            else:
+                pass  # If not dict or string, nothing to do
+
+        return updated_dict
 
 
 @click.command()

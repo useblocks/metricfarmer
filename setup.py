@@ -4,7 +4,7 @@
 import os
 from setuptools import setup, find_packages
 
-requires = ['click', 'colorama']
+requires = ['click', 'colorama', 'requests']
 
 setup(
     name='metric-farmer',
