@@ -11,7 +11,7 @@ def test_help():
 
     # Use "mf_cli" instead of "metricfarmer" in test, as click uses the name of the executed call as name and
     # this differs in our tests from real world.
-    assert "Usage: mf_cli [OPTIONS] [TARGETS]..." in result.output
+    assert "Usage: mf-cli [OPTIONS] [TARGETS]..." in result.output
 
 
 def test_empty_call():
@@ -43,6 +43,6 @@ def test_spec_farmer_folder():
     assert 'test.farm: DONE' in result.output
 
     # Be sure farm-file outside .farmer got not loaded
-    assert 'metrics.farm' not in result.output
+    assert 'config.farm' not in result.output
     assert 'sources.farm' not in result.output
     assert 'targets.farm' not in result.output

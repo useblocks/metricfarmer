@@ -1,0 +1,51 @@
+{
+  "metrics": {
+    "jira_issues": {
+      "source": {
+        "type": "rest_jira",
+        "jql": ""
+      }
+    },
+
+    "github_issues": {
+      "source": {
+        "type": "rest_github_v3",
+        "filter": "repo:useblocks/metricfarmer+type:issue+state:open+assignee:invalid"
+      }
+    }
+  },
+
+  "sources": {
+    "rest_jira": {
+      "class": "mf.rest",
+      "url": "https://useblocks.atlassian.net/rest/api/3/search",
+       "method": "POST",
+       "payload": {
+         "jql": ":MF_REPLACE:jql",
+         "maxResults": 1,
+         "fields": [ "summary"],
+         "startAt": 0
+       },
+       "result_call": "result['total']"
+
+    },
+    "rest_github_v3": {
+      "class": "mf.rest",
+      "url": "https://api.github.com/search/issues",
+       "method": "GET",
+       "payload": {
+         "q": ":MF_REPLACE:filter"
+       },
+      "no_escape": true,
+       "result_call": "result['total_count']"
+
+    }
+  },
+
+
+  "targets": {
+    "print": {
+      "class": "mf.print"
+    }
+  }
+}

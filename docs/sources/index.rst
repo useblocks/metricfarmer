@@ -285,8 +285,12 @@ mf.rest
      - GET
      - No
    * - payload
-     - Structured data, which will be send as json data.
+     - Structured data, which will be send as json data. If method=GET, data must be a flat dictionary.
      - None
+     - No
+   * - no_escape
+     - If True, payload will be added to url unescaped (only GET).
+     - False
      - No
    * - result_call
      - Python statement, which gets evaluated and defines the location of the data, which shall be taken as measurement result
@@ -317,15 +321,15 @@ Then the ``result_call`` should be ``len(rest_result['friends']))``.
    {
       "sources": {
          "company_service": {
-            "type": "mf.rest",
+            "class": "mf.rest",
             "url": "https://my-company.com/service/api/rest",
             "user": "my-name",
-            "password: "my_password",
+            "password": "my_password",
             "method": "POST",
             "payload": {
                "filter": "Issues = Open"
-               }
-            "result_call": "rest_result['service_A']['total']"
+             },
+            "result_call": "result['service_A']['total']"
          }
       }
    }
