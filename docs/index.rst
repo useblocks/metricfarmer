@@ -20,19 +20,6 @@ And no development skills are needed to use Metric-Farmer.
 Developers can easily create own Metric-Farmer extensions to provide custom solutions for sources and targets.
 For instance to measure a company-internal service.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-   installation
-   cli
-   metrics
-   sources/index
-   targets/index
-   settings
-   extensions
-   helpers
-
 Features
 ---------
 Metric-Farmer is capable to collect metrics from following :ref:`sources`:
@@ -40,7 +27,7 @@ Metric-Farmer is capable to collect metrics from following :ref:`sources`:
 * :ref:`static values <mf.static>`
 * :ref:`random values<mf.random>`
 * :ref:`file count <mf.file_count>`
-* :ref:`REST requests <mf.rest>`
+* :ref:`REST requests <mf.rest>` (E.g. to measure :ref:`JIRA <snippet_jira>` or :ref:`GitHub <snippet_github>`)
 
 
 And sends the results to the following :ref:`targets`:
@@ -204,3 +191,18 @@ Metric-Farmer is part of a software bundle, which was designed to support the de
 Other tools are: `sphinx-needs <https://sphinxcontrib-needs.readthedocs.io/en/latest/>`_,
 `sphinx-test-reports <https://sphinx-test-reports.readthedocs.io/en/latest/>`_ and
 `tox-envreport <https://tox-envreport.readthedocs.io/en/latest/>`_.
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   installation
+   cli
+   metrics
+   sources/index
+   targets/index
+   settings
+   extensions
+   helpers
+   snippets/index
