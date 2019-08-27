@@ -72,3 +72,50 @@ the jql-data from the metric definition.
      }
    }
 
+
+.. _helper_mf_env:
+
+MF_ENV
+------
+
+MF_ENV replaces the value, where it is defined, with a value defined by a named environment variable.
+
+Example: ``:MF_ENV:my_password`` will look for a environment variable called ``my_password`` and takes its
+content as value.
+
+If the variable is not found, the string will not get replaced.
+
+This mechanism is useful to prevent the storage of credentials inside ``.farm``-files, which may be stored on public
+repositories.
+
+.. code-block:: json
+   :linenos:
+   :emphasize-lines: 16,17
+
+   {
+     "metrics": {
+       "open_issues": {
+         "description": "Measure open jira issues",
+         "source": {
+           "type": "jira",
+           "jql": "status = Open"
+         }
+       },
+     },
+
+     "sources": {
+       "jira": {
+         "class": "mf.rest",
+         "url": "https://my_jira.com",
+         "user": ":MF_ENV:JIRA_USER",
+         "password": ":MF_ENV:JIRA_PASSWORD",
+         "payload": {
+           "fields": [
+             "status"
+           ],
+           "maxResults": 1,
+           "jql": ":MF_REPLACE:jql"
+         },
+       }
+     }
+   }

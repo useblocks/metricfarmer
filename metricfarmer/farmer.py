@@ -1,4 +1,3 @@
-import copy
 import os
 from pathlib import Path
 import sys
@@ -11,6 +10,7 @@ import pkg_resources
 import re
 
 from metricfarmer.exceptions import ConfigException, InvalidTargetException
+from metricfarmer.helpers import walker
 
 version = "0.1"
 help = "http//metric-farmer.readthedocs.org"
@@ -199,7 +199,7 @@ class MetricFarmerApp:
         source_func = source_class.split('.')[1]
         handler = self.extensions[source_namespace].source_classes[source_func]
 
-        checked_parameters = self._replace_parameters(parameters)
+        checked_parameters = walker(parameters)
         result = handler(**checked_parameters, metric_name=metric_name)
         return result
 
@@ -212,50 +212,10 @@ class MetricFarmerApp:
         if target_func not in self.extensions[target_namespace].target_classes.keys():
             raise InvalidTargetException('Unknown target function: {}'.format(target_func))
         handler = self.extensions[target_namespace].target_classes[target_func]
-        result = handler(metrics=filtered_metrics, **parameters)
+
+        checked_parameters = walker(parameters)
+        result = handler(metrics=filtered_metrics, **checked_parameters)
         return result
-
-    def _replace_parameters(self, param_dict, basic_dict=None):
-        """
-        Went through a dictionary and searches for string with a defined syntax.
-        If found, the value wil be replaced by the valued taken from another parameter, which name
-        was given in the string.
-
-        Example:
-
-        {
-            "source": "Take me",
-            "target": {
-                "nothing": True,
-                "final_target": ":MF_REPLACE:source"
-            }
-        }
-
-        Fot the above case, the value of "final_target" will get replace by "take me".
-
-        :param param_dict:
-        :param basic_dict:
-        :return:
-        """
-
-        if basic_dict is None:
-            basic_dict = param_dict
-
-        updated_dict = copy.deepcopy(param_dict)
-
-        for key, value in updated_dict.items():
-            if isinstance(value, dict):
-                updated_dict[key] = self._replace_parameters(value, basic_dict)
-            elif isinstance(value, str):
-                m = mf_replace_re.match(value)
-                if m is not None:
-                    param = m.groups()[0]  # There should be only one param defined
-                    if param in basic_dict.keys():
-                        updated_dict[key] = basic_dict[param]
-            else:
-                pass  # If not dict or string, nothing to do
-
-        return updated_dict
 
 
 @click.command()

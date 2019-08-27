@@ -206,3 +206,4 @@ Other tools are: `sphinx-needs <https://sphinxcontrib-needs.readthedocs.io/en/la
    extensions
    helpers
    snippets/index
+   changelog

@@ -11,7 +11,9 @@ def test_help():
 
     # Use "mf_cli" instead of "metricfarmer" in test, as click uses the name of the executed call as name and
     # this differs in our tests from real world.
-    assert "Usage: mf-cli [OPTIONS] [TARGETS]..." in result.output
+    # Also different click version use mf-cli oder mf_cli (see underscore)
+    assert ("Usage: mf-cli [OPTIONS] [TARGETS]..." in result.output) or \
+           ("Usage: mf_cli [OPTIONS] [TARGETS]..." in result.output)
 
 
 def test_empty_call():

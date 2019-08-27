@@ -1,0 +1,26 @@
+{
+  "metrics": {
+     "test_metric": {
+        "source": {
+          "type": "static",
+          "path": 10
+        }
+     }
+  },
+
+  "sources": {
+     "static": {
+       "class": "mf.static",
+       "description": "Sets a static value for a metric. Default is 0.",
+       "value": 0
+     }
+  },
+
+  "targets": {
+    "test_file": {
+      "class": "mf.file_text",
+      "path": ":MF_ENV:METRICFARMER_PATH"
+
+    }
+  }
+}

@@ -8,13 +8,13 @@ requires = ['click', 'colorama', 'requests']
 
 setup(
     name='metric-farmer',
-    version='0.0.1',
+    version='0.2.0',
     url='http://github.com/useblocks/metricfarmer',
     download_url='http://pypi.python.org/pypi/metricfarmer',
     license='MIT',
     author='team useblocks',
     author_email='info@useblocks.com',
-    description='Collects and stores metrics for ypur project.',
+    description='Collects and stores metrics for your project.',
     long_description=open(os.path.join(os.path.dirname(__file__), "README.rst")).read(),
     zip_safe=False,
     classifiers=[
