@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 requires = ['click', 'colorama', 'requests']
 
 setup(
-    name='metric-farmer',
+    name='metricfarmer',
     version='0.2.0',
     url='http://github.com/useblocks/metricfarmer',
     download_url='http://pypi.python.org/pypi/metricfarmer',
